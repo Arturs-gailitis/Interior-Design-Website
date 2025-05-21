@@ -59,6 +59,6 @@ try {
     
 } catch (PDOException $quarryError) {
 
-    die("The quarry statment have failed: " . $error->getMessage());
+    die("The quarry statement have failed: " . $error->getMessage());
 }
 ?>
