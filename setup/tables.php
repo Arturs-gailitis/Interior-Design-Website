@@ -54,8 +54,8 @@ try {
     $connection ->exec($review);
 
     echo "<h2>Setup Complete!</h2>";
-    echo "<p>Database and tables created successfully.</p>";
-    echo "<p>You can now <a href='../index.php'>access the website</a>.</p>";
+    echo "<p>Database tables were created successfully.</p>";
+    echo "<p>You can now <a href='../home.php'>access the website</a>.</p>";
     
 } catch (PDOException $quarryError) {
 

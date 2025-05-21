@@ -14,6 +14,8 @@ try {
 
     echo "Connection successful!";
 
+    echo "<p>To create database tables. You must go <a href='tables.php'>here</a>.</p>";
+
 } catch (PDOException $error){
 
     die("Connection failed: " . $error->getMessage());
