@@ -12,9 +12,6 @@ try {
 
     $connection = new PDO("mysql:host=$host;port=$port;dbname=$database", $username, $password);
 
-    echo "Connection successful!";
-
-    echo "<p>To create database tables. You must go <a href='tables.php'>here</a>.</p>";
 
 } catch (PDOException $error){
 
