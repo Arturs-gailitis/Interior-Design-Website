@@ -44,9 +44,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
   <meta charset="UTF-8" />
   <title>Contact Form</title>
+  <link rel="stylesheet" href="style/layout.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
 </head>
 <body>
+
+    <div class="d-flex">
+        <button id="changeDarkMode">Toggle Websites Light Mode</button>
+    </div>
 
   <div class="container mt-5">
     <h2 class="mb-4">Contact us</h2>
@@ -104,6 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   </div>
 
   <script src="javascript/form-validation.js"></script>
+  <script src="javascript/darkMode.js"></script>
 
 </body>
 </html>
