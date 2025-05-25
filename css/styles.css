@@ -218,4 +218,25 @@ body ul {
     #info {
         margin-bottom: 340px;
     }
+
+    .card-img-top {
+        object-fit: cover;
+        width: 100%;
+        height: 220px;
+        display: block;
+        transition: transform 0.3s ease;
+    }
+
+    .card:hover .card-img-top {
+        transform: scale(1.02);
+    }
+
+    .card {
+        transition: box-shadow 0.3s ease;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .card:hover {
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
 }
