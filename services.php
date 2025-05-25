@@ -13,6 +13,12 @@ $projects = $project->readAll();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .card-img-top {
+            object-fit: cover;
+            height: 200px;
+        }
+    </style>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -24,8 +30,8 @@ $projects = $project->readAll();
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="services.php">Design Projects</a></li>
-                <li class="nav-item"><a class="nav-link" href="contact.php">Contact</a></li>
+                <li class="nav-item"><a class="nav-link" href="services.php">Our Projects</a></li>
+                <li class="nav-item"><a class="nav-link" href="contact.php">Contact Us</a></li>
                 <li class="nav-item"><a class="nav-link" href="about.php">About Us</a></li>
             </ul>
         </div>
@@ -52,6 +58,9 @@ $projects = $project->readAll();
             <?php foreach ($projects as $p): ?>
                 <div class="col-md-4 col-sm-6 mb-4">
                     <div class="card h-100">
+                        <?php if (!empty($p['image_path'])): ?>
+                            <img src="<?= htmlspecialchars($p['image_path']) ?>" class="card-img-top" alt="<?= htmlspecialchars($p['title']) ?>">
+                        <?php endif; ?>
                         <div class="card-body">
                             <h5 class="card-title"><?= htmlspecialchars($p['title']) ?></h5>
                             <p class="card-text"><?= htmlspecialchars($p['description']) ?></p>
@@ -79,4 +88,3 @@ $projects = $project->readAll();
 <script src="js/toggle.js"></script>
 </body>
 </html>
-

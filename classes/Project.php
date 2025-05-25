@@ -9,23 +9,24 @@ class Project {
         $this->connection = $db->getConnection();
     }
 
-    public function create($title, $description, $location, $start_day, $end_day, $status) {
-        $stmt = $this->connection->prepare("
-            INSERT INTO projects (title, description, location, start_day, end_day, status)
-            VALUES (:title, :description, :location, :start_day, :end_day, :status)
-        ");
-        $stmt->bindParam(':title', $title);
-        $stmt->bindParam(':description', $description);
-        $stmt->bindParam(':location', $location);
-        $stmt->bindParam(':start_day', $start_day);
-        $stmt->bindParam(':end_day', $end_day);
-        $stmt->bindParam(':status', $status);
-        return $stmt->execute();
-    }
+    public function create($title, $description, $location, $start_day, $end_day, $status, $image_path) {
+    $stmt = $this->connection->prepare("
+        INSERT INTO projects (title, description, location, start_day, end_day, status, image_path)
+        VALUES (:title, :description, :location, :start_day, :end_day, :status, :image_path)
+    ");
+    $stmt->bindParam(':title', $title);
+    $stmt->bindParam(':description', $description);
+    $stmt->bindParam(':location', $location);
+    $stmt->bindParam(':start_day', $start_day);
+    $stmt->bindParam(':end_day', $end_day);
+    $stmt->bindParam(':status', $status);
+    $stmt->bindParam(':image_path', $image_path);
+    return $stmt->execute();
+}
 
     public function readAll() {
         $stmt = $this->connection->query("
-            SELECT id, title, description, location, start_day, end_day, status FROM projects
+            SELECT id, title, description, location, start_day, end_day, status, image_path FROM projects
         ");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }

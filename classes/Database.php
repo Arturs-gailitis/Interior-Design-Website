@@ -6,7 +6,7 @@ class Database {
 
     private $host = "localhost";
     private $username = "root";
-    private $password = "arturs2003";
+    private $password = "";
     private $database = "design-database";
     private $port = 3306;
     private $con;

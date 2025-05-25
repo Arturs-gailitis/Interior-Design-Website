@@ -1,7 +1,7 @@
 <?php
 $host = "localhost";
 $username = "root";
-$password = "arturs2003";
+$password = "";
 $database = "design-database";
 $port = 3306;
 
