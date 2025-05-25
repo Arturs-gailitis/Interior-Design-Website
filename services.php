@@ -1,22 +1,15 @@
 <?php
-require_once 'classes/Service.php';
+require_once 'classes/Project.php';
 session_start();
 
-$service = new Service();
-$services = [];
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['search'])) {
-    $keyword = trim($_POST['search']);
-    $services = $service->searchByKeyword($keyword);
-} else {
-    $services = $service->readAll();
-}
+$project = new Project();
+$projects = $project->readAll();
 ?>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Interior Design Services</title>
+    <title>Interior Design Projects</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/styles.css">
@@ -31,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['search'])) {
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="services.php">Design Services</a></li>
+                <li class="nav-item"><a class="nav-link" href="services.php">Design Projects</a></li>
                 <li class="nav-item"><a class="nav-link" href="contact.php">Contact</a></li>
                 <li class="nav-item"><a class="nav-link" href="about.php">About Us</a></li>
             </ul>
@@ -50,24 +43,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['search'])) {
 </nav>
 
 <div class="container mt-4">
-    <h2 class="text-center mb-4">Interior Design Services</h2>
+    <h2 class="text-center mb-4">Interior Design Projects</h2>
 
-    <form method="POST" class="form-inline justify-content-center mb-4">
-        <input type="text" name="search" class="form-control mr-2" placeholder="Search services..." value="<?= htmlspecialchars($_POST['search'] ?? '') ?>">
-        <button type="submit" class="btn btn-primary">Search</button>
-    </form>
-
-    <?php if (empty($services)): ?>
-        <div class="alert alert-warning text-center">No services found.</div>
+    <?php if (empty($projects)): ?>
+        <div class="alert alert-warning text-center">No projects found.</div>
     <?php else: ?>
         <div class="row">
-            <?php foreach ($services as $s): ?>
+            <?php foreach ($projects as $p): ?>
                 <div class="col-md-4 col-sm-6 mb-4">
                     <div class="card h-100">
-                        <img src="images/services/<?= htmlspecialchars($s['image']) ?>" class="card-img-top service-img" alt="<?= htmlspecialchars($s['title']) ?>">
                         <div class="card-body">
-                            <h5 class="card-title"><?= htmlspecialchars($s['title']) ?></h5>
-                            <p class="card-text"><?= htmlspecialchars($s['description']) ?></p>
+                            <h5 class="card-title"><?= htmlspecialchars($p['title']) ?></h5>
+                            <p class="card-text"><?= htmlspecialchars($p['description']) ?></p>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><strong>Location:</strong> <?= htmlspecialchars($p['location']) ?></li>
+                                <li class="list-group-item"><strong>Start Date:</strong> <?= htmlspecialchars($p['start_day']) ?></li>
+                                <li class="list-group-item"><strong>End Date:</strong> <?= htmlspecialchars($p['end_day']) ?></li>
+                                <li class="list-group-item"><strong>Status:</strong> <?= htmlspecialchars($p['status']) ?></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -86,3 +79,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['search'])) {
 <script src="js/toggle.js"></script>
 </body>
 </html>
+

@@ -36,13 +36,13 @@ try {
 
     $con->exec($user);
 
-    $con->exec($message);
+    $con->exec($messages);
 
     echo "<h2>Setup Complete!</h2>";
     echo "<p>Database and tables created successfully.</p>";
     echo "<p>You can now <a href='../index.php'>access the website</a>.</p>";
     
 } catch (PDOException $e) {
-    die("Connection faled: " . $e->getMessage());
+    die("Connection failed: " . $e->getMessage());
 }
 ?>
