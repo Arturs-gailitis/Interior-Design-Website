@@ -2,10 +2,10 @@
 session_start();
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>Contact Us - Interior Design Hub</title>
+    <title>About Us - Interior Design Hub</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/styles.css">
@@ -22,7 +22,7 @@ session_start();
                 <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="services.php">Design Services</a></li>
                 <li class="nav-item"><a class="nav-link" href="contact.php">Contact Us</a></li>
-                <li class="nav-item"><a class="nav-link" href="about.php">About Us</a></li>
+                <li class="nav-item"><a class="nav-link active" href="about.php">About Us</a></li>
             </ul>
         </div>
         <div class="d-flex">
@@ -39,24 +39,14 @@ session_start();
 </nav>
 
 <div class="container mt-5">
-    <h2 class="text-center mb-4">Get in Touch With Us</h2>
-    <p class="text-center">Have a question or want to discuss your interior design project? Fill in the form below and our team will get back to you shortly.</p>
-
-    <form action="#" method="post" class="mx-auto" style="max-width: 600px;">
-        <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" class="form-control" id="name" name="name" required>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h2>About Our Interior Design Services</h2>
+            <p class="mt-4">We are passionate about transforming your living spaces into aesthetically pleasing and functional environments. Our team of experienced designers specializes in residential and commercial interior design, offering personalized consultations, mood board creation, and full-service decorating.</p>
+            <p>Whether you are renovating your home, opening a new office, or simply looking to refresh a room, our team is here to help. We focus on blending style, comfort, and functionality to reflect your personal taste and needs.</p>
+            <p>At Interior Design Hub, we believe that great design starts with understanding our clients' visions. Our process includes detailed planning, material selection, 3D visualizations, and project management to ensure a smooth and satisfying experience.</p>
         </div>
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" name="email" required>
-        </div>
-        <div class="form-group">
-            <label for="message">Message</label>
-            <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">Send Message</button>
-    </form>
+    </div>
 </div>
 
 <footer id="footer" class="text-center mt-5">

@@ -1,11 +1,22 @@
 <?php
+require_once 'classes/Service.php';
 session_start();
+
+$service = new Service();
+$services = [];
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['search'])) {
+    $keyword = trim($_POST['search']);
+    $services = $service->searchByKeyword($keyword);
+} else {
+    $services = $service->readAll();
+}
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>Contact Us - Interior Design Hub</title>
+    <title>Interior Design Services</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/styles.css">
@@ -21,7 +32,7 @@ session_start();
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="services.php">Design Services</a></li>
-                <li class="nav-item"><a class="nav-link" href="contact.php">Contact Us</a></li>
+                <li class="nav-item"><a class="nav-link" href="contact.php">Contact</a></li>
                 <li class="nav-item"><a class="nav-link" href="about.php">About Us</a></li>
             </ul>
         </div>
@@ -38,29 +49,35 @@ session_start();
     </div>
 </nav>
 
-<div class="container mt-5">
-    <h2 class="text-center mb-4">Get in Touch With Us</h2>
-    <p class="text-center">Have a question or want to discuss your interior design project? Fill in the form below and our team will get back to you shortly.</p>
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Interior Design Services</h2>
 
-    <form action="#" method="post" class="mx-auto" style="max-width: 600px;">
-        <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" class="form-control" id="name" name="name" required>
-        </div>
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" name="email" required>
-        </div>
-        <div class="form-group">
-            <label for="message">Message</label>
-            <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">Send Message</button>
+    <form method="POST" class="form-inline justify-content-center mb-4">
+        <input type="text" name="search" class="form-control mr-2" placeholder="Search services..." value="<?= htmlspecialchars($_POST['search'] ?? '') ?>">
+        <button type="submit" class="btn btn-primary">Search</button>
     </form>
+
+    <?php if (empty($services)): ?>
+        <div class="alert alert-warning text-center">No services found.</div>
+    <?php else: ?>
+        <div class="row">
+            <?php foreach ($services as $s): ?>
+                <div class="col-md-4 col-sm-6 mb-4">
+                    <div class="card h-100">
+                        <img src="images/services/<?= htmlspecialchars($s['image']) ?>" class="card-img-top service-img" alt="<?= htmlspecialchars($s['title']) ?>">
+                        <div class="card-body">
+                            <h5 class="card-title"><?= htmlspecialchars($s['title']) ?></h5>
+                            <p class="card-text"><?= htmlspecialchars($s['description']) ?></p>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
 </div>
 
 <footer id="footer" class="text-center mt-5">
-    <p>&copy; <span id="years_before"></span><span id="corrent_year"></span> Interior Design Hub. All rights reserved.
+    <p>&copy; <span id="years_before"></span><span id="corrent_year"></span> Interior Design Hub. All rights reserved. 
     <a href="https://www.instagram.com/">Instagram</a>, <a href="https://x.com/">X</a></p>
 </footer>
 
