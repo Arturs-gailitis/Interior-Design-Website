@@ -1,6 +1,28 @@
 <?php
 session_start();
+require_once 'classes/Message.php';
+
+$messageObj = new Message();
+$success = false;
+$error = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $name = trim($_POST['name'] ?? '');
+    $email = trim($_POST['email'] ?? '');
+    $message = trim($_POST['message'] ?? '');
+
+    if ($name && $email && $message) {
+        if ($messageObj->create($name, $email, $message)) {
+            $success = true;
+        } else {
+            $error = "Failed to send your message. Please try again.";
+        }
+    } else {
+        $error = "Please fill in all fields.";
+    }
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,18 +64,24 @@ session_start();
     <h2 class="text-center mb-4">Get in Touch With Us</h2>
     <p class="text-center">Have a question or want to discuss your interior design project? Fill in the form below and our team will get back to you shortly.</p>
 
-    <form action="#" method="post" class="mx-auto" style="max-width: 600px;">
+    <?php if ($success): ?>
+        <div class="alert alert-success text-center">Thank you! Your message has been sent successfully.</div>
+    <?php elseif ($error): ?>
+        <div class="alert alert-danger text-center"><?= htmlspecialchars($error) ?></div>
+    <?php endif; ?>
+
+    <form action="" method="post" class="mx-auto" style="max-width: 600px;">
         <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" class="form-control" id="name" name="name" required>
+            <input value="<?= htmlspecialchars($_POST['name'] ?? '') ?>" type="text" class="form-control" id="name" name="name" required>
         </div>
         <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" name="email" required>
+            <input value="<?= htmlspecialchars($_POST['email'] ?? '') ?>" type="email" class="form-control" id="email" name="email" required>
         </div>
         <div class="form-group">
             <label for="message">Message</label>
-            <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+            <textarea class="form-control" id="message" name="message" rows="5" required><?= htmlspecialchars($_POST['message'] ?? '') ?></textarea>
         </div>
         <button type="submit" class="btn btn-primary">Send Message</button>
     </form>
@@ -61,7 +89,7 @@ session_start();
 
 <footer id="footer" class="text-center mt-5">
     <p>&copy; <span id="years_before"></span><span id="corrent_year"></span> Interior Design Hub. All rights reserved.
-    <a href="https://www.instagram.com/">Instagram</a>, <a href="https://x.com/">X</a></p>
+        <a href="https://www.instagram.com/">Instagram</a>, <a href="https://x.com/">X</a></p>
 </footer>
 
 <script src="js/DarkTheme.js"></script>

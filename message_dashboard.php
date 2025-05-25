@@ -1,23 +1,16 @@
 <?php
-session_start();
+require_once "classes/Message.php";
 
-if (!isset($_SESSION['user_id'])) {
-    header("Location: index.php");
-    exit();
-}
-
-require_once 'classes/Project.php';
-
-$project = new Project();
-$projects = $project->readAll();
+$messageObj = new Message();
+$messages = $messageObj->getAll();
 
 if (isset($_GET['delete'])) {
-    $id = $_GET['delete'];
-    if ($project->delete($id)) {
+    $idToDelete = (int)$_GET['delete'];
+    if ($messageObj->delete($idToDelete)) {
         header("Location: dashboard.php?success=deleted");
-        exit();
+        exit;
     } else {
-        $error = "Failed to delete project";
+        $error = "Failed to delete message with ID $idToDelete.";
     }
 }
 ?>
@@ -26,7 +19,7 @@ if (isset($_GET['delete'])) {
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Projects Dashboard</title>
+    <title>Message Dashboard</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
     <link href="css/styles.css" rel="stylesheet" />
 </head>
@@ -34,35 +27,31 @@ if (isset($_GET['delete'])) {
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="index.php">Project Management</a>
+        <a class="navbar-brand" href="index.php">Message Management</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item"><a class="nav-link" href="index.php">Main Page</a></li>
-                <li class="nav-item"><a class="nav-link" href="projects.php">Projects List</a></li>
                 <li class="nav-item"><a class="nav-link" href="contact.php">Contact Us</a></li>
                 <li class="nav-item"><a class="nav-link" href="about.php">About the Team</a></li>
             </ul>
         </div>
-        <div class="d-flex">
-            <button href="message_dashboard.php" class="btn btn-light ml-2">Message Dashboard</button>
-            <button id="darkModeToggle" class="btn btn-light ml-2">Toggle Dark Mode</button>
-        </div>
+        <button id="darkModeToggle" class="btn btn-light ml-2">Toggle Dark Mode</button>
     </div>
 </nav>
 
 <div class="container mt-5 text-center">
-    <h2>Projects Dashboard</h2>
+    <h2>Messages Dashboard</h2>
 
     <?php if (isset($_GET['success'])): ?>
         <div class="alert alert-success mt-3">
             <?php
             switch ($_GET['success']) {
-                case 'added': echo "Project added successfully!"; break;
-                case 'updated': echo "Project updated successfully!"; break;
-                case 'deleted': echo "Project deleted successfully!"; break;
+                case 'added': echo "Message added successfully!"; break;
+                case 'updated': echo "Message updated successfully!"; break;
+                case 'deleted': echo "Message deleted successfully!"; break;
             }
             ?>
         </div>
@@ -73,38 +62,34 @@ if (isset($_GET['delete'])) {
     <?php endif; ?>
 
     <div class="text-right mb-3">
-        <a href="add_project.php" class="btn btn-primary"> + Add New Project</a>
+        <a href="add_message.php" class="btn btn-primary"> + Add New Message</a>
     </div>
 
-    <?php if (!empty($projects)): ?>
+    <?php if (!empty($messages)): ?>
     <div class="table-responsive">
         <table class="table table-bordered table-hover table-striped bg-white text-center">
             <thead class="thead-dark">
                 <tr>
                     <th>ID</th>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>Location</th>
-                    <th>Start Day</th>
-                    <th>End Day</th>
-                    <th>Status</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Message</th>
+                    <th>Created At</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($projects as $p): ?>
+                <?php foreach ($messages as $msg): ?>
                 <tr>
-                    <td><?= $p['id'] ?></td>
-                    <td><?= htmlspecialchars($p['title']) ?></td>
-                    <td><?= htmlspecialchars($p['description']) ?></td>
-                    <td><?= htmlspecialchars($p['location']) ?></td>
-                    <td><?= htmlspecialchars($p['start_day']) ?></td>
-                    <td><?= htmlspecialchars($p['end_day']) ?></td>
-                    <td><?= htmlspecialchars($p['status']) ?></td>
+                    <td><?= $msg['id'] ?></td>
+                    <td><?= htmlspecialchars($msg['name']) ?></td>
+                    <td><?= htmlspecialchars($msg['email']) ?></td>
+                    <td><?= nl2br(htmlspecialchars($msg['message'])) ?></td>
+                    <td><?= htmlspecialchars($msg['created_at']) ?></td>
                     <td>
-                        <a href="edit_project.php?id=<?= $p['id'] ?>" class="btn btn-primary btn-sm" style="font-size: inherit; padding: 0.375rem 0.75rem;">Edit</a>
-                        <a href="dashboard.php?delete=<?= $p['id'] ?>" class="btn btn-danger btn-sm"
-                            onclick="return confirm('Are you sure you want to delete this project?')" style="font-size: inherit; padding: 0.375rem 0.75rem;">Delete</a>
+                        <a href="edit_message.php?id=<?= $msg['id'] ?>" class="btn btn-primary btn-sm" style="font-size: inherit; padding: 0.375rem 0.75rem;">Edit</a>
+                        <a href="dashboard.php?delete=<?= $msg['id'] ?>" class="btn btn-danger btn-sm"
+                            onclick="return confirm('Are you sure you want to delete this message?')" style="font-size: inherit; padding: 0.375rem 0.75rem;">Delete</a>
                     </td>
                 </tr>
                 <?php endforeach; ?>
@@ -112,12 +97,12 @@ if (isset($_GET['delete'])) {
         </table>
     </div>
     <?php else: ?>
-        <p class="text-center mt-3">No projects found.</p>
+        <p class="text-center mt-3">No messages found.</p>
     <?php endif; ?>
 </div>
 
 <footer id="footer" class="text-center mt-5">
-    <p>&copy; <span id="years_before"></span><span id="corrent_year"></span> Project Management. All rights reserved. 
+    <p>&copy; <span id="years_before"></span><span id="corrent_year"></span> Message Management. All rights reserved. 
     <a href="https://www.instagram.com/">Instagram</a>, <a href="https://x.com/">X</a></p>
 </footer>
 
@@ -128,3 +113,4 @@ if (isset($_GET['delete'])) {
 
 </body>
 </html>
+
