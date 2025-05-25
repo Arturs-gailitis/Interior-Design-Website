@@ -70,7 +70,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="alert alert-danger text-center"><?= htmlspecialchars($error) ?></div>
     <?php endif; ?>
 
-    <form action="" method="post" class="mx-auto" style="max-width: 600px;">
+    <div id="ErrorMessage"></div>
+
+    <form id="contactForm" action="contact.php" method="post" class="mx-auto" style="max-width: 600px;">
         <div class="form-group">
             <label for="name">Name</label>
             <input value="<?= htmlspecialchars($_POST['name'] ?? '') ?>" type="text" class="form-control" id="name" name="name" required>
@@ -88,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </div>
 
 <footer id="footer" class="text-center mt-5">
-    <p>&copy; <span id="years_before"></span><span id="corrent_year"></span> Interior Design Hub. All rights reserved.
+    <p>&copy; <span id="years_before"></span><span id="current_year"></span> Interior Design Hub. All rights reserved.
         <a href="https://www.instagram.com/">Instagram</a>, <a href="https://x.com/">X</a></p>
 </footer>
 

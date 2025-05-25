@@ -1,24 +1,23 @@
 document.getElementById("years_before").textContent = "2015 - ";
-document.getElementById("corrent_year").textContent = new Date().getFullYear();
+document.getElementById("current_year").textContent = new Date().getFullYear();
 
 const footer = document.getElementById("footer");
-footer.addEventListener("mouseover", function() {
+footer.addEventListener("mouseover", function () {
     footer.style.backgroundColor = "white";
     footer.style.color = "black";
 });
-footer.addEventListener("mouseout", function() {
+footer.addEventListener("mouseout", function () {
     footer.style.backgroundColor = "black";
     footer.style.color = "white";
 });
 
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("contactForm");
-    const errorBox = document.getElementById("ErrorMassage");
+    const errorBox = document.getElementById("ErrorMessage");
 
     if (form) {
-        form.addEventListener("submit", function(event) {
-            let error = false;
-            let e_massage = '';
+        form.addEventListener("submit", function (event) {
+            let errors = [];
             errorBox.innerHTML = '';
 
             const name = document.getElementById("name").value.trim();
@@ -26,20 +25,19 @@ document.addEventListener("DOMContentLoaded", function () {
             const message = document.getElementById("message").value.trim();
             const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
 
-            if (name.length === 0) {
-                error = true;
-                e_massage = '<div class="alert alert-danger">Name is required.</div>';
-            } else if (!emailRegex.test(email)) {
-                error = true;
-                e_massage = '<div class="alert alert-danger">The email is not valid.</div>';
-            } else if (message.length < 10) {
-                error = true;
-                e_massage = '<div class="alert alert-danger">Message is too short.</div>';
+            if (name.length < 4) {
+                errors.push("Name is too short.");
+            }
+            if (!emailRegex.test(email)) {
+                errors.push("The email is not valid.");
+            }
+            if (message.length < 10) {
+                errors.push("Message is too short.");
             }
 
-            if (error) {
+            if (errors.length > 0) {
                 event.preventDefault();
-                errorBox.innerHTML = e_massage;
+                errorBox.innerHTML = errors.map(err => `<div class="alert alert-danger">${err}</div>`).join('');
             }
         });
     }
