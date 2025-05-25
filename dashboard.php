@@ -99,9 +99,9 @@ if (isset($_GET['delete'])) {
                     <td><?= htmlspecialchars($p['end_day']) ?></td>
                     <td><?= htmlspecialchars($p['status']) ?></td>
                     <td>
-                        <a href="edit_project.php?id=<?= $p['id'] ?>" class="btn btn-primary btn-sm">Edit</a>
+                        <a href="edit_project.php?id=<?= $p['id'] ?>" class="btn btn-primary btn-sm" style="font-size: inherit; padding: 0.375rem 0.75rem;">Edit</a>
                         <a href="dashboard.php?delete=<?= $p['id'] ?>" class="btn btn-danger btn-sm"
-                           onclick="return confirm('Are you sure you want to delete this project?')">Delete</a>
+                            onclick="return confirm('Are you sure you want to delete this project?')" style="font-size: inherit; padding: 0.375rem 0.75rem;">Delete</a>
                     </td>
                 </tr>
                 <?php endforeach; ?>

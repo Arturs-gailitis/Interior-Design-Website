@@ -3,8 +3,8 @@ document.getElementById("corrent_year").textContent = new Date().getFullYear();
 
 const footer = document.getElementById("footer");
 footer.addEventListener("mouseover", function() {
-    footer.style.backgroundColor = "darkgrey";
-    footer.style.color = "brown";
+    footer.style.backgroundColor = "white";
+    footer.style.color = "black";
 });
 footer.addEventListener("mouseout", function() {
     footer.style.backgroundColor = "black";
