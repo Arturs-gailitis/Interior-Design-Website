@@ -42,7 +42,7 @@ $projects = $project->readAll();
     </div>
 </nav>
 
-<div class="container mt-4">
+<div class="container-fluid mt-4">
     <h2 class="text-center mb-4">Interior Design Projects</h2>
 
     <?php if (empty($projects)): ?>
@@ -50,20 +50,24 @@ $projects = $project->readAll();
     <?php else: ?>
         <div class="row">
             <?php foreach ($projects as $p): ?>
-                <div class="col-md-4 col-sm-6 mb-4 d-flex">
-                    <div class="card h-100 w-100">
+                <div class="col-md-6 mb-4">
+                    <div class="card flex-row h-100">
                         <?php if (!empty($p['image_path'])): ?>
-                            <img src="<?= htmlspecialchars($p['image_path']) ?>" class="card-img-top" alt="<?= htmlspecialchars($p['title']) ?>">
+                            <div class="col-md-5 p-0">
+                                <img src="<?= htmlspecialchars($p['image_path']) ?>" class="card-img-left img-fluid h-100" alt="<?= htmlspecialchars($p['title']) ?>">
+                            </div>
                         <?php endif; ?>
-                        <div class="card-body">
-                            <h5 class="card-title"><?= htmlspecialchars($p['title']) ?></h5>
-                            <p class="card-text"><?= htmlspecialchars($p['description']) ?></p>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item"><strong>Location:</strong> <?= htmlspecialchars($p['location']) ?></li>
-                                <li class="list-group-item"><strong>Start Date:</strong> <?= htmlspecialchars($p['start_day']) ?></li>
-                                <li class="list-group-item"><strong>End Date:</strong> <?= htmlspecialchars($p['end_day']) ?></li>
-                                <li class="list-group-item"><strong>Status:</strong> <?= htmlspecialchars($p['status']) ?></li>
-                            </ul>
+                        <div class="col-md-7">
+                            <div class="card-body">
+                                <h5 class="card-title"><?= htmlspecialchars($p['title']) ?></h5>
+                                <p class="card-text"><?= htmlspecialchars($p['description']) ?></p>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item"><strong>Location:</strong> <?= htmlspecialchars($p['location']) ?></li>
+                                    <li class="list-group-item"><strong>Start Date:</strong> <?= htmlspecialchars($p['start_day']) ?></li>
+                                    <li class="list-group-item"><strong>End Date:</strong> <?= htmlspecialchars($p['end_day']) ?></li>
+                                    <li class="list-group-item"><strong>Status:</strong> <?= htmlspecialchars($p['status']) ?></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>

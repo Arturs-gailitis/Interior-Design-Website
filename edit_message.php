@@ -25,8 +25,9 @@ if (!$currentMessage) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $messageText = $_POST['message'];
+    $status = $_POST['status'];
 
-    if ($messageHandler->update($id, $messageText)) {
+    if ($messageHandler->update($id, $messageText, $status)) {
         header("Location: message_dashboard.php?success=updated");
         exit();
     } else {
@@ -79,6 +80,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <label for="message" class="form-label">Message</label>
             <textarea class="form-control" id="message" name="message" rows="5" required><?= htmlspecialchars($currentMessage['message']) ?></textarea>
         </div>
+
+        <div class="mb-3">
+            <label for="status" class="form-label">Status</label>
+            <select id="status" name="status" class="form-select" required>
+                <?php
+                $statuses = ['Unread', 'Answered', 'Archived', 'Read'];
+                foreach ($statuses as $s) {
+                    $selected = ($currentMessage['status'] === $s) ? 'selected' : '';
+                    echo "<option value=\"" . htmlspecialchars($s) . "\" $selected>" . ucfirst($s) . "</option>";
+                }
+                ?>
+            </select>
+        </div>
+
         <button type="submit" class="btn btn-primary">Update Message</button>
         <a href="message_dashboard.php" class="btn btn-secondary">Cancel</a>
     </form>
@@ -89,6 +104,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-
-
-
