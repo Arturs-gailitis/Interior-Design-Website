@@ -13,12 +13,6 @@ $projects = $project->readAll();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/styles.css">
-    <style>
-        .card-img-top {
-            object-fit: cover;
-            height: 200px;
-        }
-    </style>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -56,8 +50,8 @@ $projects = $project->readAll();
     <?php else: ?>
         <div class="row">
             <?php foreach ($projects as $p): ?>
-                <div class="col-md-4 col-sm-6 mb-4">
-                    <div class="card h-100">
+                <div class="col-md-4 col-sm-6 mb-4 d-flex">
+                    <div class="card h-100 w-100">
                         <?php if (!empty($p['image_path'])): ?>
                             <img src="<?= htmlspecialchars($p['image_path']) ?>" class="card-img-top" alt="<?= htmlspecialchars($p['title']) ?>">
                         <?php endif; ?>
