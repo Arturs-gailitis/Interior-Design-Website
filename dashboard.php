@@ -41,13 +41,14 @@ if (isset($_GET['delete'])) {
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item"><a class="nav-link" href="index.php">Main Page</a></li>
-                <li class="nav-item"><a class="nav-link" href="projects.php">Projects List</a></li>
+                <li class="nav-item"><a class="nav-link" href="services.php">Projects List</a></li>
                 <li class="nav-item"><a class="nav-link" href="contact.php">Contact Us</a></li>
                 <li class="nav-item"><a class="nav-link" href="about.php">About the Team</a></li>
             </ul>
         </div>
         <div class="d-flex">
-            <button href="message_dashboard.php" class="btn btn-light ml-2">Message Dashboard</button>
+            <a href="dashboard.php" class="btn btn-light ml-2">Project Dashboard</a>
+            <a href="message_dashboard.php" class="btn btn-light ml-2">Message Dashboard</a>
             <button id="darkModeToggle" class="btn btn-light ml-2">Toggle Dark Mode</button>
         </div>
     </div>

@@ -7,7 +7,7 @@ $messages = $messageObj->getAll();
 if (isset($_GET['delete'])) {
     $idToDelete = (int)$_GET['delete'];
     if ($messageObj->delete($idToDelete)) {
-        header("Location: dashboard.php?success=deleted");
+        header("Location: message_dashboard.php?success=deleted");
         exit;
     } else {
         $error = "Failed to delete message with ID $idToDelete.";
@@ -34,11 +34,16 @@ if (isset($_GET['delete'])) {
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item"><a class="nav-link" href="index.php">Main Page</a></li>
+                <li class="nav-item"><a class="nav-link" href="services.php">Projects List</a></li>
                 <li class="nav-item"><a class="nav-link" href="contact.php">Contact Us</a></li>
                 <li class="nav-item"><a class="nav-link" href="about.php">About the Team</a></li>
             </ul>
         </div>
-        <button id="darkModeToggle" class="btn btn-light ml-2">Toggle Dark Mode</button>
+        <div class="d-flex">
+            <a href="dashboard.php" class="btn btn-light ml-2">Project Dashboard</a>
+            <a href="message_dashboard.php" class="btn btn-light ml-2">Message Dashboard</a>
+            <button id="darkModeToggle" class="btn btn-light ml-2">Toggle Dark Mode</button>
+        </div>
     </div>
 </nav>
 
@@ -60,10 +65,6 @@ if (isset($_GET['delete'])) {
     <?php if (isset($error)): ?>
         <div class="alert alert-danger mt-3"><?= htmlspecialchars($error) ?></div>
     <?php endif; ?>
-
-    <div class="text-right mb-3">
-        <a href="add_message.php" class="btn btn-primary"> + Add New Message</a>
-    </div>
 
     <?php if (!empty($messages)): ?>
     <div class="table-responsive">
@@ -88,7 +89,7 @@ if (isset($_GET['delete'])) {
                     <td><?= htmlspecialchars($msg['created_at']) ?></td>
                     <td>
                         <a href="edit_message.php?id=<?= $msg['id'] ?>" class="btn btn-primary btn-sm" style="font-size: inherit; padding: 0.375rem 0.75rem;">Edit</a>
-                        <a href="dashboard.php?delete=<?= $msg['id'] ?>" class="btn btn-danger btn-sm"
+                        <a href="message_dashboard.php?delete=<?= $msg['id'] ?>" class="btn btn-danger btn-sm"
                             onclick="return confirm('Are you sure you want to delete this message?')" style="font-size: inherit; padding: 0.375rem 0.75rem;">Delete</a>
                     </td>
                 </tr>

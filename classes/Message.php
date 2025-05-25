@@ -36,14 +36,10 @@ class Message {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function update($id, $name, $email, $message) {
+    public function update($id, $message) {
         $stmt = $this->connection->prepare("
-            UPDATE messages 
-            SET name = :name, email = :email, message = :message 
-            WHERE id = :id
+            UPDATE messages SET message = :message WHERE id = :id
         ");
-        $stmt->bindParam(':name', $name);
-        $stmt->bindParam(':email', $email);
         $stmt->bindParam(':message', $message);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
 
@@ -55,5 +51,13 @@ class Message {
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         return $stmt->execute();
     }
+
+    public function getMessageById($id) {
+        $stmt = $this->connection->prepare("SELECT * FROM messages WHERE id = :id");
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
 }
 ?>
