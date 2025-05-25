@@ -28,7 +28,7 @@ if (isset($_SESSION['user_id']) && isset($_COOKIE['username'])) {
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="services.php">Our Services</a></li>
+                <li class="nav-item"><a class="nav-link" href="services.php">Our Projects</a></li>
                 <li class="nav-item"><a class="nav-link" href="contact.php">Contact Us</a></li>
                 <li class="nav-item"><a class="nav-link" href="about.php">About Us</a></li>
             </ul>

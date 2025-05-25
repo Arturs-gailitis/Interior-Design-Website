@@ -16,12 +16,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $end_day = $_POST['end_day'];
     $status = $_POST['status'];
 
-    $project = new Project();
-    if ($project->create($title, $desc, $location, $start_day, $end_day, $status)) {
-        header("Location: dashboard.php?success=added");
-        exit();
-    } else {
-        $error = "Failed to add project";
+    // Attēla apstrāde ar validāciju
+    $image_path = null;
+    if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+        $upload_dir = 'uploads/';
+        if (!file_exists($upload_dir)) {
+            mkdir($upload_dir, 0777, true);
+        }
+
+        $allowed_types = ['image/jpeg', 'image/png', 'image/webp'];
+        $filename = time() . '_' . preg_replace('/\s+/', '_', basename($_FILES['image']['name']));
+        $target_file = $upload_dir . $filename;
+
+        if (in_array($_FILES['image']['type'], $allowed_types)) {
+            if (move_uploaded_file($_FILES['image']['tmp_name'], $target_file)) {
+                $image_path = $target_file;
+            } else {
+                $error = "Failed to upload the image.";
+            }
+        } else {
+            $error = "Only JPG, PNG, and WEBP images are allowed.";
+        }
+    }
+
+    if (!isset($error)) {
+        $project = new Project();
+        if ($project->create($title, $desc, $location, $start_day, $end_day, $status, $image_path)) {
+            header("Location: dashboard.php?success=added");
+            exit();
+        } else {
+            $error = "Failed to add project";
+        }
     }
 }
 ?>
@@ -57,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
     <?php endif; ?>
 
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
         <div class="mb-3">
             <label for="title" class="form-label">Title</label>
             <input type="text" class="form-control" id="title" name="title" required />
@@ -91,6 +116,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <option value="completed">Completed</option>
                 <option value="on hold">On Hold</option>
             </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="image" class="form-label">Project Image</label>
+            <input type="file" class="form-control" id="image" name="image" accept="image/*" required />
         </div>
 
         <button type="submit" class="btn btn-primary">Add Project</button>

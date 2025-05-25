@@ -40,10 +40,10 @@ if (isset($_GET['delete'])) {
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item"><a class="nav-link" href="index.php">Main Page</a></li>
-                <li class="nav-item"><a class="nav-link" href="services.php">Projects List</a></li>
+                <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="services.php">Our Projects</a></li>
                 <li class="nav-item"><a class="nav-link" href="contact.php">Contact Us</a></li>
-                <li class="nav-item"><a class="nav-link" href="about.php">About the Team</a></li>
+                <li class="nav-item"><a class="nav-link" href="about.php">About Us</a></li>
             </ul>
         </div>
         <div class="d-flex">
