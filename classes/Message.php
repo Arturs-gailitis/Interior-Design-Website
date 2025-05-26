@@ -36,14 +36,14 @@ class Message {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function update($id, $message) {
-        $stmt = $this->connection->prepare("
-            UPDATE messages SET message = :message WHERE id = :id
-        ");
-        $stmt->bindParam(':message', $message);
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+     public function update($id, $message, $status) {
+    $stmt = $this->connection->prepare("
+        UPDATE messages SET message = :message, status = :status WHERE id = :id");
+    $stmt->bindParam(':message', $message);
+    $stmt->bindParam(':status', $status);
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
 
-        return $stmt->execute();
+    return $stmt->execute();
     }
 
     public function delete($id) {

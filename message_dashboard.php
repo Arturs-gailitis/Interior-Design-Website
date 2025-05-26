@@ -76,6 +76,7 @@ if (isset($_GET['delete'])) {
                     <th>Email</th>
                     <th>Message</th>
                     <th>Created At</th>
+                    <th>Status</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -87,6 +88,8 @@ if (isset($_GET['delete'])) {
                     <td><?= htmlspecialchars($msg['email']) ?></td>
                     <td><?= nl2br(htmlspecialchars($msg['message'])) ?></td>
                     <td><?= htmlspecialchars($msg['created_at']) ?></td>
+                    <td><?= htmlspecialchars($msg['Status']) ?></td>
+
                     <td>
                         <a href="edit_message.php?id=<?= $msg['id'] ?>" class="btn btn-primary btn-sm" style="font-size: inherit; padding: 0.375rem 0.75rem;">Edit</a>
                         <a href="message_dashboard.php?delete=<?= $msg['id'] ?>" class="btn btn-danger btn-sm"
