@@ -28,6 +28,6 @@ class Database {
         return $this->con;
     }
 
-
+// Gatis Jurisons
 }
 ?>
