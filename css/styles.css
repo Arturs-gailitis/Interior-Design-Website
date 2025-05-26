@@ -254,3 +254,31 @@ body ul {
     max-width: 100%;
     height: auto;
 }
+
+.alert-danger {
+    text-align: center;
+}
+
+.dark-mode .alert-danger {
+    background-color: red;
+    color:white;
+}
+
+.form-group {
+    text-align: center;
+}
+
+#submit {
+    display: block;
+    margin: 0 auto;
+}
+
+.dark-mode .alert-info {
+    background-color: green;
+    color: white;
+}
+
+.dark-mode .alert-success {
+    background-color: green;
+    color: white;
+}

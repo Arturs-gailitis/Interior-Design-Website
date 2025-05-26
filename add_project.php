@@ -7,21 +7,8 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-if (!isset($_GET['id'])) {
-    header("Location: dashboard.php");
-    exit();
-}
-
-$id = (int)$_GET['id'];
-$projectHandler = new Project();
-$currentProject = $projectHandler->getProjectById($id);
-
-if (!$currentProject) {
-    header("Location: dashboard.php?error=notfound");
-    exit();
-}
-
 $error = '';
+$success = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = trim($_POST['title']);
@@ -30,9 +17,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $start_day = trim($_POST['start_day']);
     $end_day = trim($_POST['end_day']);
     $status = trim($_POST['status']);
-    $image_path = $currentProject['image_path'];
+    $image_path = '';
 
-    // Apstrādā attēla augšupielādi, ja izvēlēts jauns attēls
     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
         $upload_dir = 'uploads/';
         if (!file_exists($upload_dir)) {
@@ -47,19 +33,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (move_uploaded_file($_FILES['image']['tmp_name'], $target_file)) {
                 $image_path = $target_file;
             } else {
-                $error = "Failed to upload the image.";
+                $error = "Image upload failed.";
             }
         } else {
-            $error = "Only JPG, PNG, and WEBP images are allowed.";
+            $error = "Only JPG, PNG, and WEBP files are allowed.";
         }
     }
 
     if (!$error) {
-        if ($projectHandler->update($id, $title, $desc, $location, $start_day, $end_day, $status, $image_path)) {
-            header("Location: dashboard.php?success=updated");
+        $projectHandler = new Project();
+        if ($projectHandler->create($title, $desc, $location, $start_day, $end_day, $status, $image_path)) {
+            header("Location: dashboard.php?success=added");
             exit();
         } else {
-            $error = "Failed to update project.";
+            $error = "Failed to save the project.";
         }
     }
 }
@@ -69,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <title>Edit Project</title>
+    <title>Add Project</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/styles.css" />
@@ -91,35 +78,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </nav>
 
 <div class="container mt-5">
-    <h2>Edit Project</h2>
+    <h2>Add Project</h2>
+    
     <?php if ($error): ?>
         <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
+    <?php endif; ?>
+
+    <?php if ($success): ?>
+        <div class="alert alert-success"><?= htmlspecialchars($success) ?></div>
     <?php endif; ?>
 
     <form method="POST" enctype="multipart/form-data">
         <div class="mb-3">
             <label for="title" class="form-label">Title</label>
-            <input type="text" class="form-control" id="title" name="title" value="<?= htmlspecialchars($currentProject['title']) ?>" required />
+            <input type="text" class="form-control" id="title" name="title" 
+                   value="<?= isset($_POST['title']) ? htmlspecialchars($_POST['title']) : '' ?>" required />
         </div>
 
         <div class="mb-3">
             <label for="description" class="form-label">Description</label>
-            <textarea class="form-control" id="description" name="description" rows="3" required><?= htmlspecialchars($currentProject['description']) ?></textarea>
+            <textarea class="form-control" id="description" name="description" rows="3" required><?= isset($_POST['description']) ? htmlspecialchars($_POST['description']) : '' ?></textarea>
         </div>
 
         <div class="mb-3">
             <label for="location" class="form-label">Location</label>
-            <input type="text" class="form-control" id="location" name="location" value="<?= htmlspecialchars($currentProject['location']) ?>" required />
+            <input type="text" class="form-control" id="location" name="location"
+                   value="<?= isset($_POST['location']) ? htmlspecialchars($_POST['location']) : '' ?>" required />
         </div>
 
         <div class="mb-3">
-            <label for="start_day" class="form-label">Start Day</label>
-            <input type="date" class="form-control" id="start_day" name="start_day" value="<?= htmlspecialchars($currentProject['start_day']) ?>" required />
+            <label for="start_day" class="form-label">Start Date</label>
+            <input type="date" class="form-control" id="start_day" name="start_day"
+                   value="<?= isset($_POST['start_day']) ? htmlspecialchars($_POST['start_day']) : '' ?>" required />
         </div>
 
         <div class="mb-3">
-            <label for="end_day" class="form-label">End Day</label>
-            <input type="date" class="form-control" id="end_day" name="end_day" value="<?= htmlspecialchars($currentProject['end_day']) ?>" required />
+            <label for="end_day" class="form-label">End Date</label>
+            <input type="date" class="form-control" id="end_day" name="end_day"
+                   value="<?= isset($_POST['end_day']) ? htmlspecialchars($_POST['end_day']) : '' ?>" required />
         </div>
 
         <div class="mb-3">
@@ -127,8 +123,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <select class="form-control" id="status" name="status" required>
                 <?php
                 $statuses = ['planned', 'in progress', 'completed', 'on hold', 'cancelled'];
+                $selectedStatus = $_POST['status'] ?? '';
                 foreach ($statuses as $s) {
-                    $selected = ($currentProject['status'] === $s) ? 'selected' : '';
+                    $selected = ($selectedStatus === $s) ? 'selected' : '';
                     echo "<option value=\"" . htmlspecialchars($s) . "\" $selected>" . ucfirst($s) . "</option>";
                 }
                 ?>
@@ -136,17 +133,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
 
         <div class="mb-3">
-            <label for="image" class="form-label">Project Image (optional)</label>
+            <label for="image" class="form-label">Project Image</label>
             <input type="file" class="form-control" id="image" name="image" accept="image/*" />
-            <?php if (!empty($currentProject['image_path'])): ?>
-                <div class="mt-2">
-                    <p>Current Image:</p>
-                    <img src="<?= htmlspecialchars($currentProject['image_path']) ?>" alt="Project Image" class="img-thumbnail" style="max-width: 200px;">
-                </div>
-            <?php endif; ?>
         </div>
 
-        <button type="submit" class="btn btn-primary">Update Project</button>
+        <button type="submit" class="btn btn-primary">Add Project</button>
         <a href="dashboard.php" class="btn btn-secondary">Cancel</a>
     </form>
 </div>
@@ -156,4 +147,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
 

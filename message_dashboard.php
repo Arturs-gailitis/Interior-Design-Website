@@ -54,7 +54,6 @@ if (isset($_GET['delete'])) {
         <div class="alert alert-success mt-3">
             <?php
             switch ($_GET['success']) {
-                case 'added': echo "Message added successfully!"; break;
                 case 'updated': echo "Message updated successfully!"; break;
                 case 'deleted': echo "Message deleted successfully!"; break;
             }
