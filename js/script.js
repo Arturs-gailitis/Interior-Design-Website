@@ -42,18 +42,4 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    const dropdown = document.getElementById("serviceDropdown");
-    if (dropdown) {
-        const cards = Array.from(document.querySelectorAll(".card"));
-
-        dropdown.addEventListener("change", function () {
-            const selected = dropdown.value.toLowerCase();
-
-            cards.forEach(card => {
-                const content = card.innerText.toLowerCase();
-                const matches = selected === "" || content.includes(selected);
-                card.parentElement.style.display = matches ? "block" : "none";
-            });
-        });
-    }
 });
