@@ -32,14 +32,14 @@ class Project {
     }
 
     public function getProjectById($id) {
-        $stmt = $this->connection->prepare("
-            SELECT id, title, description, location, start_day, end_day, status 
-            FROM projects WHERE id = :id
-        ");
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-        $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
+    $stmt = $this->connection->prepare("
+        SELECT id, title, description, location, start_day, end_day, status, image_path
+        FROM projects WHERE id = :id
+    ");
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
 
     public function update($id, $title, $description, $location, $start_day, $end_day, $status, $image_path) {
         $stmt = $this->connection->prepare("
