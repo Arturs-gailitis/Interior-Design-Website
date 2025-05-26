@@ -2,11 +2,12 @@
 session_start();
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>About Us - Interior Design Hub</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn more about Interior Design Hub, our philosophy, and how we transform spaces with style and functionality.">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -22,7 +23,7 @@ session_start();
                 <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="services.php">Our Projects</a></li>
                 <li class="nav-item"><a class="nav-link" href="contact.php">Contact Us</a></li>
-                <li class="nav-item"><a class="nav-link" href="about.php">About Us</a></li>
+                <li class="nav-item active"><a class="nav-link" href="about.php">About Us</a></li>
             </ul>
         </div>
         <div class="d-flex">
@@ -38,13 +39,38 @@ session_start();
     </div>
 </nav>
 
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-md-12 text-center">
-            <h2>About Our Interior Design Services</h2>
-            <p class="mt-4">We are passionate about transforming your living spaces into aesthetically pleasing and functional environments. Our team of experienced designers specializes in residential and commercial interior design, offering personalized consultations, mood board creation, and full-service decorating.</p>
-            <p>Whether you are renovating your home, opening a new office, or simply looking to refresh a room, our team is here to help. We focus on blending style, comfort, and functionality to reflect your personal taste and needs.</p>
-            <p>At Interior Design Hub, we believe that great design starts with understanding our clients' visions. Our process includes detailed planning, material selection, 3D visualizations, and project management to ensure a smooth and satisfying experience.</p>
+<div class="container-lg mt-5 about-section">
+    <div class="row justify-content-center">
+        <div class="col-md-10 text-center">
+            <h2 class="mb-4">About Our Interior Design Services</h2>
+            <p class="lead">We transform spaces into elegant, comfortable, and functional environments tailored to your needs.</p>
+            <hr class="my-4">
+            <p>Our team specializes in residential and commercial projects. We offer personalized consultations, detailed planning, and 3D visualizations to bring your vision to life.</p>
+            <p>We value collaboration, creativity, and commitment to excellence, ensuring every project is unique and exceptional.</p>
+        </div>
+    </div>
+
+    <div class="row mt-5 text-center">
+        <div class="col-md-4">
+            <img src="images/consultation.jpg" class="img-fluid rounded mb-3 shadow" alt="Consultation">
+            <h5>Personal Consultations</h5>
+            <p>Discuss your vision with our expert designers to find the perfect style for your space.</p>
+        </div>
+        <div class="col-md-4">
+            <img src="images/moodboard.jpg" class="img-fluid rounded mb-3 shadow" alt="Moodboard">
+            <h5>Custom Moodboards</h5>
+            <p>We create inspirational moodboards that align with your taste and functionality goals.</p>
+        </div>
+        <div class="col-md-4">
+            <img src="images/project-management.jpg" class="img-fluid rounded mb-3 shadow" alt="Project Management">
+            <h5>End-to-End Management</h5>
+            <p>From design to execution, we manage everything to ensure high-quality results.</p>
+        </div>
+    </div>
+
+    <div class="row mt-5 justify-content-center">
+        <div class="col-md-8 text-center">
+            <a href="contact.php" class="btn btn-primary btn-lg mt-4">Let's Talk</a>
         </div>
     </div>
 </div>
