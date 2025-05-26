@@ -89,6 +89,7 @@ if (isset($_GET['delete'])) {
                     <th>Start Day</th>
                     <th>End Day</th>
                     <th>Status</th>
+                    <th>Image</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -102,6 +103,13 @@ if (isset($_GET['delete'])) {
                     <td><?= htmlspecialchars($p['start_day']) ?></td>
                     <td><?= htmlspecialchars($p['end_day']) ?></td>
                     <td><?= htmlspecialchars($p['status']) ?></td>
+                    <td>
+                        <?php if (!empty($p['image_path'])): ?>
+                            <img src="<?= htmlspecialchars($p['image_path']) ?>" alt="Project Image" style="max-height: 60px;">
+                        <?php else: ?>
+                            No image
+                        <?php endif; ?>
+                    </td>
                     <td>
                         <a href="edit_project.php?id=<?= $p['id'] ?>" class="btn btn-primary btn-sm" style="font-size: inherit; padding: 0.375rem 0.75rem;">Edit</a>
                         <a href="dashboard.php?delete=<?= $p['id'] ?>" class="btn btn-danger btn-sm"

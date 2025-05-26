@@ -41,7 +41,7 @@ class Project {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function update($id, $title, $description, $location, $start_day, $end_day, $status) {
+    public function update($id, $title, $description, $location, $start_day, $end_day, $status, $image_path) {
         $stmt = $this->connection->prepare("
             UPDATE projects SET 
                 title = :title,
@@ -49,7 +49,8 @@ class Project {
                 location = :location,
                 start_day = :start_day,
                 end_day = :end_day,
-                status = :status
+                status = :status,
+                image_path = :image_path
             WHERE id = :id
         ");
         $stmt->bindParam(':title', $title);
@@ -58,10 +59,11 @@ class Project {
         $stmt->bindParam(':start_day', $start_day);
         $stmt->bindParam(':end_day', $end_day);
         $stmt->bindParam(':status', $status);
+        $stmt->bindParam(':image_path', $image_path);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         return $stmt->execute();
     }
-
+    
     public function delete($id) {
         $stmt = $this->connection->prepare("DELETE FROM projects WHERE id = :id");
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);

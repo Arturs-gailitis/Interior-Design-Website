@@ -7,15 +7,15 @@ try {
     $con = new PDO("mysql:host=$host;port=$port;dbname=$database", $username, $password);
 
     $designproject = "CREATE TABLE IF NOT EXISTS projects (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(60) NOT NULL UNIQUE,
-    description VARCHAR(2000) NOT NULL,
-    location VARCHAR(150) NOT NULL,
-    start_day DATE NOT NULL,
-    end_day DATE,
-    status VARCHAR(50) NOT NULL,
-    image_path VARCHAR(255) NOT NULL
-)";
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        title VARCHAR(60) NOT NULL UNIQUE,
+        description VARCHAR(2000) NOT NULL,
+        location VARCHAR(150) NOT NULL,
+        start_day DATE NOT NULL,
+        end_day DATE,
+        status VARCHAR(50) NOT NULL,
+        image_path VARCHAR(255) NOT NULL
+    )";
 
     $user = "CREATE TABLE IF NOT EXISTS users (
         id INT AUTO_INCREMENT PRIMARY KEY,
