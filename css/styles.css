@@ -296,3 +296,71 @@ body ul {
 .dark-mode .navbar-nav .nav-link{
     color: 	#bba4a4 !important;
 }
+
+.about-section h2 {
+    font-size: 2.2rem;
+    color: lightblue;
+    font-weight: 600;
+}
+
+.about-section p.lead {
+    font-size: 1.25rem;
+    color: lightblue;
+}
+
+.about-section img {
+    height: 280px;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.about-section img:hover {
+    transform: scale(1.03);
+}
+
+.about-section h5 {
+    font-weight: 600;
+    margin-top: 10px;
+    color: lightblue;
+}
+
+.btn-lg {
+    font-size: 1.1rem;
+    padding: 10px 25px;
+}
+
+@media (max-width: 768px) {
+    .about-section img {
+        max-height: 150px;
+    }
+}
+
+/* Gaišā režīma teksta krāsa virsrakstiem un izceltiem teikumiem */
+.about-section .lead {
+    color: #222 !important;
+}
+
+/* Tumšā režīma teksta krāsa virsrakstiem un izceltiem teikumiem */
+.dark-mode .about-section .lead {
+    color: lightblue !important;
+}
+
+.about-section h2,
+.about-section h5,
+.about-section p {
+    color: black;
+}
+
+/* Dark mode krāsas */
+.dark-mode .about-section h2,
+.dark-mode .about-section h5 {
+    color: lightblue; /* gaiši zils */
+}
+
+.dark-mode .about-section p {
+    color: lightblue;
+}
+
