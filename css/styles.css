@@ -338,12 +338,10 @@ body ul {
     }
 }
 
-/* Gaišā režīma teksta krāsa virsrakstiem un izceltiem teikumiem */
 .about-section .lead {
     color: #222 !important;
 }
 
-/* Tumšā režīma teksta krāsa virsrakstiem un izceltiem teikumiem */
 .dark-mode .about-section .lead {
     color: lightblue !important;
 }
@@ -354,10 +352,9 @@ body ul {
     color: black;
 }
 
-/* Dark mode krāsas */
 .dark-mode .about-section h2,
 .dark-mode .about-section h5 {
-    color: lightblue; /* gaiši zils */
+    color: lightblue;
 }
 
 .dark-mode .about-section p {
