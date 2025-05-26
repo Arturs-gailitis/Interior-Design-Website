@@ -66,11 +66,15 @@ if (isset($_SESSION['user_id']) && isset($_COOKIE['username'])) {
     </div>
 </section>
 
+<br>
+
 <section class="feature_section">
     <h2>Why Choose Us?</h2>
     <p><b>We specialize in modern, functional, and customized interior environments.</b></p>
     <p><b>Whether you're redesigning your home or office, we provide expert guidance.</b></p>
 </section>
+
+<br>
 
 <section class="column">
     <h2>Our Key Focus Areas</h2>

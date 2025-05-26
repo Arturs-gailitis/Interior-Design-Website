@@ -66,6 +66,7 @@ footer {
     font-size: 14px;
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
     z-index: 1000;
+    text-align: center;
 }
 
 .contact .form-group {
@@ -159,7 +160,7 @@ footer {
     color: #e0e0e0;
 }
 .dark-mode .feature_section, .dark-mode .column {
-    background-color: black;
+    background-color: #1e1e1e;
     color: white;
 }
 .dark-mode .jumbotron {
@@ -181,7 +182,7 @@ footer {
 }
 
 .dark-mode .btn-danger {
-    color: black;
+    color: #1e1e1e;
 }
 
 .dark-mode .navbar {
@@ -281,4 +282,17 @@ body ul {
 .dark-mode .alert-success {
     background-color: green;
     color: white;
+}
+
+.dark-mode .alert-warning {
+    background-color: #f0e1a9;
+    color: white;
+}
+
+.dark-mode .navbar-brand {
+    color: lightblue !important;
+}
+
+.dark-mode .navbar-nav .nav-link{
+    color: 	#bba4a4 !important;
 }
