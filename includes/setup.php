@@ -5,7 +5,6 @@ try {
     $con = new PDO("mysql:host=$host;port=$port;dbname=$database", $username, $password);
     $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // Create tables
     $designproject = "CREATE TABLE IF NOT EXISTS projects (
         id INT AUTO_INCREMENT PRIMARY KEY,
         title VARCHAR(255) NOT NULL UNIQUE,
@@ -37,10 +36,8 @@ try {
     $con->exec($user);
     $con->exec($messages);
 
-    // Clear projects for fresh insert
     $con->exec("DELETE FROM projects");
 
-    // Insert demo projects 
      $projects = [
         [
             'title' => 'From Dated & Dark to Bright Modern Living Space',
